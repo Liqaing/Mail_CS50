@@ -64,5 +64,8 @@ function send_email(e) {
     console.log('Error:', error);
   });
 
+  // Load user sent mailbox
+  load_mailbox('sent'); 
+
   return false;
 }

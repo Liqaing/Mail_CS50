@@ -1,14 +1,39 @@
 {% extends "mail/layout.html" %}
 {% load static %}
 
-{% block body %}
-    <h2>{{ request.user.email }}</h2>
+{% block navbar %}        
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <h2>Email: {{ request.user.email }}</h2>
 
-    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
-    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
-    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItems">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarItems">
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-item">
+                    <a id="inbox" class="nav-link" href="#">Inbox</a>
+                </li>
+                <li class="navbar-item">
+                    <a id="inbox" class="nav-link" href="#">Inbox</a>
+                    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+                </li>
+                <li class="navbar-item">
+                    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+                </li>
+                <li class="navbar-item">
+                    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+                </li>
+                <li class="navbar-item">
+                    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+
     <hr>
 
     <div id="emails-view">
