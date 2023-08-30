@@ -2,32 +2,33 @@
 {% load static %}
 
 {% block navbar %}        
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <h2>Email: {{ request.user.email }}</h2>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary px-4">
+        <div class="container">
+            <h3>Email: {{ request.user.email }}</h3>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItems">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItems">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarItems">
-            <ul class="navbar-nav mr-auto">
-                <li class="navbar-item">
-                    <a id="inbox" class="nav-link" href="#">Inbox</a>
-                </li>
-                <li class="navbar-item">
-                    <a id="inbox" class="nav-link" href="#">Inbox</a>
-                    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-                </li>
-                <li class="navbar-item">
-                    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-                </li>
-                <li class="navbar-item">
-                    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
-                </li>
-                <li class="navbar-item">
-                    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarItems">
+                <ul class="navbar-nav ms-auto">
+                    <li class="navbar-item">
+                        <a id="inbox" class="nav-link" href="#">Inbox</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a id="compose" class="nav-link" href="#">Compose</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a id="sent" class="nav-link" href="#">Sent</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a id="archived" class="nav-link" href="#">Archived</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 {% endblock %}
