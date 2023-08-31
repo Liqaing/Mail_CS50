@@ -56,14 +56,26 @@ function send_email(e) {
       body: body,
     })
   })
-  .then(response => response.json())
+  .then(response => {
+
+    // Handle error
+    if (!response.ok) {
+      // Update message from API reponse to form validation
+      alert(response)
+      return;
+    }
+
+    response.json()
+  })
   .then(result => {
     console.log(result);
   })
   .catch(error => {
+    alert("Error");
     console.log('Error:', error);
+    return;
   });
-
+  
   // Load user sent mailbox
   load_mailbox('sent'); 
 
