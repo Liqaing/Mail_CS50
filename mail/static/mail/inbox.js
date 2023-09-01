@@ -56,28 +56,33 @@ function send_email(e) {
       body: body,
     })
   })
-  .then(response => {
+  .then(response => response.json())
 
     // Handle error
-    if (!response.ok) {
-      // Update message from API reponse to form validation
-      alert(response)
-      return;
-    }
-
-    response.json()
-  })
+    // if (!response.ok) {
+    //   // Update message from API reponse to form validation
+    //   const errorData = response.json();
+    //   console.log(errorData.error);
+    //   alert(errorData.error);
+    //   return response.json();
+    // }
+    
   .then(result => {
+    if (result.error) {
+      alert(result.error);
+    }
+    else {
+      load_mailbox('sent');
+    }
     console.log(result);
   })
   .catch(error => {
-    alert("Error");
+    // alert("Error");
     console.log('Error:', error);
-    return;
   });
   
   // Load user sent mailbox
-  load_mailbox('sent'); 
+  // load_mailbox('sent'); 
 
   return false;
 }

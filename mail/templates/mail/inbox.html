@@ -42,7 +42,7 @@
 
     <div id="compose-view">
         <h3>New Email</h3>
-        <form id="compose-form">
+        <form id="compose-form" class="needs-validation" novalidate>
             <div class="form-group row">
                 <label class="col-sm-1 col-form-label" for="compose-sender">From:</label>
                 <div class="col-sm-11">
@@ -53,6 +53,9 @@
                 <label class="col-sm-1 col-form-label" for="compose-recipients">To:</label>
                 <div class="col-sm-11">
                     <input id="compose-recipients" class="form-control-plaintext border-bottom" type="text" required placeholder="Recipients">
+                    <div class="invalid-feedback">
+                        please enter valid recipients
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
