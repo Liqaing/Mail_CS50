@@ -38,7 +38,7 @@ function load_mailbox(mailbox) {
 
 // Send compose email to server by API route (/emails)
 function send_email(e) {
-  
+
   // Prevent form from submit and reload while performing ajax (fetch)
   e.preventDefault();
 
@@ -71,6 +71,13 @@ function send_email(e) {
 
     // Handle error
     if (result.error) {
+
+      // Change error message in feedback
+      document.querySelector('#recipients-invalid-feedback').innerHTML = result.error; 
+      
+      // Change class of input field to invalid 
+      document.querySelector('#compose-recipients').classList.add('is-invalid');
+
       alert(result.error);
     }
     else {
@@ -88,3 +95,4 @@ function send_email(e) {
 
   return false;
 }
+
