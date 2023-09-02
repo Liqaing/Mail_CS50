@@ -19,6 +19,10 @@ function compose_email() {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
 
+  // Set compose-recipients class to valid, as not to display error message when open form
+  document.querySelector('#compose-recipients').classList.remove('is-invalid');
+  document.querySelector('#compose-recipients').classList.add('is-valid');
+
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
@@ -76,8 +80,9 @@ function send_email(e) {
       document.querySelector('#recipients-invalid-feedback').innerHTML = result.error; 
       
       // Change class of input field to invalid 
+      document.querySelector('#compose-recipients').classList.remove('is-valid');
       document.querySelector('#compose-recipients').classList.add('is-invalid');
-
+  
       alert(result.error);
     }
     else {
