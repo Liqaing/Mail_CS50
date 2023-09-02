@@ -68,6 +68,8 @@ function send_email(e) {
     // }
     
   .then(result => {
+
+    // Handle error
     if (result.error) {
       alert(result.error);
     }

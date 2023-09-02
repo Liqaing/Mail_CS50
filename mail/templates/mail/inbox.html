@@ -13,16 +13,16 @@
             <div class="collapse navbar-collapse" id="navbarItems">
                 <ul class="navbar-nav ms-auto">
                     <li class="navbar-item">
-                        <a id="inbox" class="nav-link" href="#">Inbox</a>
+                        <a id="inbox" class="nav-link" role="button">Inbox</a>
                     </li>
                     <li class="navbar-item">
-                        <a id="compose" class="nav-link" href="#">Compose</a>
+                        <a id="compose" class="nav-link" role="button">Compose</a>
                     </li>
                     <li class="navbar-item">
-                        <a id="sent" class="nav-link" href="#">Sent</a>
+                        <a id="sent" class="nav-link" role="button">Sent</a>
                     </li>
                     <li class="navbar-item">
-                        <a id="archived" class="nav-link" href="#">Archived</a>
+                        <a id="archived" class="nav-link" role="button">Archived</a>
                     </li>
                     <li class="navbar-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -52,7 +52,7 @@
             <div class="form-group row">
                 <label class="col-sm-1 col-form-label" for="compose-recipients">To:</label>
                 <div class="col-sm-11">
-                    <input id="compose-recipients" class="form-control-plaintext border-bottom" type="text" required placeholder="Recipients">
+                    <input id="compose-recipients" class="form-control-plaintext border-bottom" type="text" value="Recipients emails" placeholder="Recipients" required>
                     <div class="invalid-feedback">
                         please enter valid recipients
                     </div>
