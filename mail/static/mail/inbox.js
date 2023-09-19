@@ -38,6 +38,13 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+
+  // Send api request to emails/inbox, sent or, archive
+  fetch(`/emails/${mailbox}`)
+  .then(response => response.json())
+  .then(emails => {
+    console.log(emails);
+  });
 }
 
 // Send compose email to server by API route (/emails)
@@ -60,17 +67,13 @@ function send_email(e) {
       body: body,
     })
   })
-  .then(response => response.json())
-
-    // Handle error
-    // if (!response.ok) {
-    //   // Update message from API reponse to form validation
-    //   const errorData = response.json();
-    //   console.log(errorData.error);
-    //   alert(errorData.error);
-    //   return response.json();
-    // }
-    
+  .then(response => {
+    // Handle unexpected return status
+    if (!response.ok) {
+      throw new Error(`Unexpected erorr, Status: ${response.status}!`);
+    }
+    return response.json()
+  })
   .then(result => {
 
     // Handle error
@@ -86,6 +89,7 @@ function send_email(e) {
       alert(result.error);
     }
     else {
+      // Send user to sent mailbox
       load_mailbox('sent');
     }
     console.log(result);
@@ -94,9 +98,6 @@ function send_email(e) {
     // alert("Error");
     console.log('Error:', error);
   });
-  
-  // Load user sent mailbox
-  // load_mailbox('sent'); 
 
   return false;
 }
