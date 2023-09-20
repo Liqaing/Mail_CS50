@@ -1,3 +1,5 @@
+import { createEmailTableRow, createEmailTableHead } from "./util.js";
+
 document.addEventListener('DOMContentLoaded', function() {
 
   // Use buttons to toggle between views
@@ -47,16 +49,26 @@ function load_mailbox(mailbox) {
     // Create new table element, add bootstrap class
     const table = document.createElement('table');
     table.classList.add('table');
-    
-    console.log(emails);
+    table.style.tableLayout = 'fixed';
+
+    // Create table head element
+    const thead = document.createElement('thead');
+    const header = createEmailTableHead();
+    thead.appendChild(header);
+
+    // Create table body element
+    const tbody = document.createElement('tbody');
+
     // Call function to create table row for each email
     emails.forEach((email) => {
         const emailRow = createEmailTableRow(email);
         // Append row to table
-        table.appendChild(emailRow);
+        tbody.appendChild(emailRow);
     });
 
     // add table to email-view for display
+    table.appendChild(thead);
+    table.appendChild(tbody);
     document.querySelector('#emails-view').appendChild(table);
 
     console.log(emails);
@@ -118,17 +130,3 @@ function send_email(e) {
   return false;
 }
 
-// Create table row element for each email
-function createEmailTableRow(email) {
-  
-  // Create html row
-  // Dynamically create tr element and set its inner html to create object, which i can later use appendChile method to add it into table element
-  const tableRow = document.createElement('tr');
-  const tableRowData = `
-    <td>${email.sender}</td>
-    <td>${email.subject}</td>
-    <td>${email.timestamp}</td>
-  `
-  tableRow.innerHTML = tableRowData;
-  return tableRow;
-}
