@@ -1,17 +1,32 @@
 
 
+// Check if the email is read, to set bg color on its table row
+function isEmailRead(email, tableRow) {
+    // If read, set back ground to grey, else set to white
+    if (email.read) {
+        tableRow.classList.add('table-secondary');
+    }
+    else {
+        tableRow.classList.add('table-light');
+    }
+    return tableRow;
+}
+
 // These function display recipients email rather than sender email
 function createEmailTableRowRecipient(email) {
   
     // Create html row
     // Dynamically create tr element and set its inner html to create object, which i can later use appendChile method to add it into table element
-    const tableRow = document.createElement('tr');
+    let tableRow = document.createElement('tr');
     const tableRowData = `
       <td class="text-truncate table-text">${email.recipients}</td>
       <td class="text-truncate table-text">${email.subject} - ${email.body}</td>
       <td class="text-truncate table-text">${email.timestamp}</td>
     `
     tableRow.innerHTML = tableRowData;
+
+    tableRow = isEmailRead(email, tableRow);
+    
     return tableRow;
 }
 
@@ -33,13 +48,16 @@ function createEmailTableRow(email) {
   
     // Create html row
     // Dynamically create tr element and set its inner html to create object, which i can later use appendChile method to add it into table element
-    const tableRow = document.createElement('tr');
+    let tableRow = document.createElement('tr');
     const tableRowData = `
       <td class="text-truncate table-text">${email.sender}</td>
       <td class="text-truncate table-text">${email.subject} - ${email.body}</td>
       <td class="text-truncate table-text">${email.timestamp}</td>
     `
     tableRow.innerHTML = tableRowData;
+    
+    tableRow = isEmailRead(email, tableRow);
+
     return tableRow;
 }
 

@@ -48,7 +48,7 @@ function load_mailbox(mailbox) {
 
     // Create new table element, add bootstrap class
     const table = document.createElement('table');
-    table.classList.add('table', 'table-sm', 'table-hover', 'table-dark');
+    table.classList.add('table', 'table-sm', 'table-hover');
     table.style.tableLayout = 'fixed';
 
     // Create table head element
@@ -91,7 +91,6 @@ function load_mailbox(mailbox) {
     document.querySelector('#emails-view').appendChild(table);
 
     console.log(emails);
-    
   });
 }
 
