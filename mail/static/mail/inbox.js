@@ -1,4 +1,4 @@
-import { createEmailTableRow, createEmailTableHead } from "./util.js";
+import { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient } from "./util.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -48,30 +48,50 @@ function load_mailbox(mailbox) {
 
     // Create new table element, add bootstrap class
     const table = document.createElement('table');
-    table.classList.add('table');
+    table.classList.add('table', 'table-sm', 'table-hover', 'table-dark');
     table.style.tableLayout = 'fixed';
 
     // Create table head element
     const thead = document.createElement('thead');
-    const header = createEmailTableHead();
-    thead.appendChild(header);
 
     // Create table body element
     const tbody = document.createElement('tbody');
 
-    // Call function to create table row for each email
-    emails.forEach((email) => {
+    // If user visit sent mailbox, then display recipients email rather than sender
+    if (mailbox === "sent") {
+      // Display Recipient emails
+      // Create html table header element
+      const header = createEmailTableHeadRecipient();
+      thead.appendChild(header);
+
+      // Call function to create table row for each email
+      emails.forEach((email) => {
+        const emailRow = createEmailTableRowRecipient(email);
+        // Append row to table
+        tbody.appendChild(emailRow);
+      });
+    }
+    else {
+      // Display sender email
+      // Create html table header element
+      const header = createEmailTableHead();
+      thead.appendChild(header);
+
+      // Call function to create table row for each email
+      emails.forEach((email) => {
         const emailRow = createEmailTableRow(email);
         // Append row to table
         tbody.appendChild(emailRow);
-    });
-
+      });
+    };
+    
     // add table to email-view for display
     table.appendChild(thead);
     table.appendChild(tbody);
     document.querySelector('#emails-view').appendChild(table);
 
     console.log(emails);
+    
   });
 }
 
