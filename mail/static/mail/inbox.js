@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // compose_email form submition event
   document.querySelector('#compose-form').addEventListener('submit', send_email);
 
+  // Add event listener for email container, use event delegation to check for child that trigger the event
+  document.querySelector('#emails-view').addEventListener('click', e => {
+
+    // Check if the target that trigger the event is table data element
+    if (e.target.tagName === 'TD') {
+      // Provide td parent element to function
+      DisplayEmail(e.target.parentElement);
+    }
+  });
+
   // By default, load the inbox
   load_mailbox('inbox');
 });
@@ -19,6 +29,7 @@ function compose_email() {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#email').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
 
   // Set compose-recipients class to valid, as not to display error message when open form
@@ -37,6 +48,7 @@ function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#email').style.display = 'none';
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
@@ -148,4 +160,8 @@ function send_email(e) {
 
   return false;
 }
-
+ 
+// Display an email to user
+function DisplayEmail(email) {
+  console.log(email)
+}

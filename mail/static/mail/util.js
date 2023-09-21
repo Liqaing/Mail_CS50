@@ -18,6 +18,10 @@ function createEmailTableRowRecipient(email) {
     // Create html row
     // Dynamically create tr element and set its inner html to create object, which i can later use appendChile method to add it into table element
     let tableRow = document.createElement('tr');
+    
+    // Set data attribute of tr to email id
+    tableRow.dataset.id = email.id;
+    
     const tableRowData = `
       <td class="text-truncate table-text">${email.recipients}</td>
       <td class="text-truncate table-text">${email.subject} - ${email.body}</td>
@@ -49,6 +53,10 @@ function createEmailTableRow(email) {
     // Create html row
     // Dynamically create tr element and set its inner html to create object, which i can later use appendChile method to add it into table element
     let tableRow = document.createElement('tr');
+
+    // Set data attribute of tr to email id
+    tableRow.dataset.id = email.id;
+    
     const tableRowData = `
       <td class="text-truncate table-text">${email.sender}</td>
       <td class="text-truncate table-text">${email.subject} - ${email.body}</td>
