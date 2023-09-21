@@ -155,13 +155,34 @@ function send_email(e) {
   })
   .catch(error => {
     // alert("Error");
-    console.log('Error:', error);
+    console.log('Error: ', error);
   });
-
   return false;
 }
  
 // Display an email to user
 function DisplayEmail(email) {
-  console.log(email)
+  
+  // Retrive email id from data attribute
+  const emailId = email.dataset.id;
+  
+  // Send request to get that email
+  fetch(`emails/${emailId}`)
+  .then(response => {
+    // Handle unexpected return status
+    if (!response.ok) {
+      throw new Error(`Unexpected error, Status: ${response.status}!`);
+    }
+
+    return response.json()
+  })
+  .then(email => {
+      // Print email
+      console.log(email);
+
+      // ... do something else with email ...
+  })
+  .catch(error => {
+    console.log('Error: ', error)
+  });
 }
