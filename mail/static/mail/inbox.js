@@ -189,8 +189,20 @@ function DisplayEmail(email) {
       const emailHtml = createSentEmailHtml(email);
       emailContainer.innerHTML = emailHtml;
       
+      // Mark email as read
+      readEmail(email.id)
   })
   .catch(error => {
     console.log('Error: ', error)
   });
+}
+
+// Send put request to server to mark email as read
+function readEmail(emailId) {
+  fetch(`/emails/${emailId}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      read: true,
+    })
+  })
 }
