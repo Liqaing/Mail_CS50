@@ -93,8 +93,10 @@ function createSentEmailHtml(email) {
 
     const emailHtml = `
         <div class="h4 text-justify text-break">Subject: ${email.subject}</div>
+        <p>Date: ${email.timestamp}</p>
         <br>
         <h5>Sender: ${email.sender}</h5>
+        
         <div class="dropdown">
             <button class="btn dropdown-toggle mw-100 text-truncate p-0" data-toggle="dropdown" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 To: ${email.recipients}
@@ -104,7 +106,7 @@ function createSentEmailHtml(email) {
             </div>
         </div>
         <hr>
-        <div class="text-justify text-indent boarder">
+        <div class="text-justify text-indent">
             ${email.body}
         </div>
     `
