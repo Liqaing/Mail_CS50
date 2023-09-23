@@ -69,6 +69,7 @@ function createEmailTableRow(email) {
     return tableRow;
 }
 
+// Table head for display sender email
 function createEmailTableHead() {
     // Create html row for table head
     const tableRow = document.createElement('tr');
@@ -81,4 +82,30 @@ function createEmailTableHead() {
     return tableRow;
 }
 
-export { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient }
+// Create html for display recieved mail, which display email of sender
+function createSentEmailHtml(email) {
+
+    // Generate string of anchor elements for recipient email
+    var recipientEmailsAnchor = ''; 
+    email.recipients.forEach(email => {
+        recipientEmailsAnchor += `<a class="dropdown-item" href="#">${email}</a>`
+    });
+
+    const emailHtml = `
+        <h4>Subject: ${email.subject}</h4>
+        <br>
+        <h5>Sender: ${email.sender}</h5>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle p-0" data-toggle="dropdown" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                To:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                ${recipientEmailsAnchor}
+            </div>
+        </div>
+    `
+
+    return emailHtml;
+}
+
+export { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient, createSentEmailHtml }

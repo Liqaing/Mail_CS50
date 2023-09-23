@@ -1,4 +1,4 @@
-import { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient } from "./util.js";
+import { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient, createSentEmailHtml } from "./util.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -173,14 +173,22 @@ function DisplayEmail(email) {
     if (!response.ok) {
       throw new Error(`Unexpected error, Status: ${response.status}!`);
     }
-
     return response.json()
   })
   .then(email => {
       // Print email
       console.log(email);
 
-      // ... do something else with email ...
+      // Show email container and hide other view
+      document.querySelector('#emails-view').style.display = 'none';
+      document.querySelector('#compose-view').style.display = 'none';
+      const emailContainer = document.querySelector('#email');
+      emailContainer.style.display = 'block';
+
+      // Create Html to show email
+      const emailHtml = createSentEmailHtml(email);
+      emailContainer.innerHTML = emailHtml;
+      
   })
   .catch(error => {
     console.log('Error: ', error)

@@ -5,3 +5,8 @@ textarea {
 .table-text {
     font-size: 5px;
 }
+
+.my-btn {
+    padding: 0;
+    color: red;
+}
