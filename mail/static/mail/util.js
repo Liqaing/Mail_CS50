@@ -58,9 +58,9 @@ function createEmailTableRow(email) {
     tableRow.dataset.id = email.id;
     
     const tableRowData = `
-      <td class="text-truncate table-text">${email.sender}</td>
-      <td class="text-truncate table-text">${email.subject} - ${email.body}</td>
-      <td class="text-truncate table-text">${email.timestamp}</td>
+      <td class="text-truncate">${email.sender}</td>
+      <td class="text-truncate">${email.subject} - ${email.body}</td>
+      <td class="text-truncate">${email.timestamp}</td>
     `
     tableRow.innerHTML = tableRowData;
     
@@ -92,16 +92,20 @@ function createSentEmailHtml(email) {
     });
 
     const emailHtml = `
-        <h4>Subject: ${email.subject}</h4>
+        <div class="h4 text-justify text-break">Subject: ${email.subject}</div>
         <br>
         <h5>Sender: ${email.sender}</h5>
         <div class="dropdown">
-            <button class="btn dropdown-toggle p-0" data-toggle="dropdown" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                To:
+            <button class="btn dropdown-toggle mw-100 text-truncate p-0" data-toggle="dropdown" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                To: ${email.recipients}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 ${recipientEmailsAnchor}
             </div>
+        </div>
+        <hr>
+        <div class="text-justify text-indent boarder">
+            ${email.body}
         </div>
     `
 

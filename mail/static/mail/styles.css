@@ -2,11 +2,6 @@ textarea {
     min-height: 400px;
 }
 
-.table-text {
-    font-size: 5px;
-}
-
-.my-btn {
-    padding: 0;
-    color: red;
+.text-indent {
+    text-indent: 2rem;
 }
