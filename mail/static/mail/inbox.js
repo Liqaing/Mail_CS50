@@ -190,10 +190,16 @@ function DisplayEmail(email) {
       const emailHtml = createSentEmailHtml(email);
       emailContainer.innerHTML = emailHtml;
 
-      // Add click event listener for button, to archive or unarchive email base on its state
+      // Add click event listener for archive button, to archive or unarchive email base on its state
       const archiveButton = document.querySelector('#archive-button');
       archiveButton.addEventListener('click', function() {
           archivationEmail(email.id, !email.archived)
+      })
+
+      // Add click event listener for reply button
+      const replyButton = document.querySelector('#reply-button');
+      replyButton.addEventListener('click', function() {
+          replyEmail();
       })
       
       // Mark email as read
@@ -231,4 +237,8 @@ function archivationEmail(emailId, archiveValue) {
   .catch(error => {
     console.log('Error: ', error);
   })
+}
+
+function replyEmail() {
+
 }

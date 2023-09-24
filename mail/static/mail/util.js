@@ -114,6 +114,7 @@ function createSentEmailHtml(email) {
             </div>
         </div>
         ${archivedButton}
+        <button id="reply-button" class="btn btn-outline-secondary btn-sm mt-1 mb-0 p-1">Reply</button>
         <hr>
         <div class="text-justify text-indent">
             ${email.body}
@@ -127,10 +128,10 @@ function createArchivationButton(email) {
     // check if archive state of email
     if (email.archived === false) {
         // Not yet archive
-        archivedButton = '<button id="archive-button" class="btn btn-outline-secondary btn-sm mt-1 p-1">Archive</button>'
+        archivedButton = '<button id="archive-button" class="btn btn-outline-secondary btn-sm mt-1 mb-0 p-1">Archive</button>'
     }
     else {
-        archivedButton = '<button id="archive-button" class="btn btn-outline-secondary btn-sm mt-1 p-1">Unarchive</button>'
+        archivedButton = '<button id="archive-button" class="btn btn-outline-secondary btn-sm mt-1 mb-0 p-1">Unarchive</button>'
     }
     return archivedButton;
 }
