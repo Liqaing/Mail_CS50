@@ -191,15 +191,18 @@ function DisplayEmail(email) {
       emailContainer.innerHTML = emailHtml;
 
       // Add click event listener for archive button, to archive or unarchive email base on its state
-      const archiveButton = document.querySelector('#archive-button');
-      archiveButton.addEventListener('click', function() {
-          archivationEmail(email.id, !email.archived)
-      })
+      // Add event listener only when archive button exist, in other word when user vist mailbox other than sent mailbox  
+      if (document.querySelector('#mailbox-title').innerHTML.toLowerCase() !== 'sent') {
+        const archiveButton = document.querySelector('#archive-button');
+        archiveButton.addEventListener('click', function() {
+            archivationEmail(email.id, !email.archived)
+        })  
+      }
 
       // Add click event listener for reply button
       const replyButton = document.querySelector('#reply-button');
       replyButton.addEventListener('click', function() {
-          replyEmail();
+          replyEmail(email);
       })
       
       // Mark email as read
@@ -239,6 +242,28 @@ function archivationEmail(emailId, archiveValue) {
   })
 }
 
-function replyEmail() {
+// Take user to composition form and prefill necessary info
+function replyEmail(email) {
 
+  compose_email();
+
+  // Pre fill composition form
+  // If user click reply on sent mail, display recipient email instead
+  if (document.querySelector('#mailbox-title').innerHTML.toLowerCase() !== 'sent') {
+    document.querySelector('#compose-recipients').value = email.sender;
+  }
+  else {
+    document.querySelector('#compose-recipients').value = email.recipients;
+  }
+  
+  // Check if email subject start with 'Re: '
+  const composeSubject = document.querySelector('#compose-subject');
+  if (!email.subject.startsWith('Re: ')) {
+    composeSubject.value = `Re: ${email.subject}`;
+  }
+  else {
+    composeSubject.value = email.subject;
+  }
+
+  document.querySelector('#compose-body').value = `\nOn ${email.timestamp} ${email.sender} wrote: ${email.body}`;
 }
