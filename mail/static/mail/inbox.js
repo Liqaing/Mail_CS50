@@ -51,7 +51,7 @@ function load_mailbox(mailbox) {
   document.querySelector('#email').style.display = 'none';
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  document.querySelector('#emails-view').innerHTML = `<h3 id="mailbox-title">${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
   // Send api request to emails/inbox, sent or, archive
   fetch(`/emails/${mailbox}`)
@@ -182,11 +182,19 @@ function DisplayEmail(email) {
       // Show email container and hide other view
       document.querySelector('#emails-view').style.display = 'none';
       document.querySelector('#compose-view').style.display = 'none';
+      
       const emailContainer = document.querySelector('#email');
       emailContainer.style.display = 'block';
 
       // Create Html to show email
       const emailHtml = createSentEmailHtml(email);
+      
+      // Show button to archive or unarchive the email
+      // Show only when user visit mail that is not in sent mailbox
+      if (document.querySelector('#mailbox-title').innerHTML.toLowerCase() !== 'sent') {
+        console.log('not sent');
+      }
+      
       emailContainer.innerHTML = emailHtml;
       
       // Mark email as read
