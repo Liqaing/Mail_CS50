@@ -1,4 +1,4 @@
-import { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient, createSentEmailHtml } from "./util.js";
+import { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient, createSentEmailHtml, createArchivationButton } from "./util.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -186,16 +186,15 @@ function DisplayEmail(email) {
       const emailContainer = document.querySelector('#email');
       emailContainer.style.display = 'block';
 
-      // Create Html to show email
+      // Create Html to show email, show(title, subject, emails, button)
       const emailHtml = createSentEmailHtml(email);
-      
-      // Show button to archive or unarchive the email
-      // Show only when user visit mail that is not in sent mailbox
-      if (document.querySelector('#mailbox-title').innerHTML.toLowerCase() !== 'sent') {
-        console.log('not sent');
-      }
-      
       emailContainer.innerHTML = emailHtml;
+
+      // Add click event listener for button, to archive or unarchive email base on its state
+      const archiveButton = document.querySelector('#archive-button');
+      archiveButton.addEventListener('click', function() {
+          archivationEmail(email.id, !email.archived)
+      })
       
       // Mark email as read
       readEmail(email.id)
@@ -212,5 +211,24 @@ function readEmail(emailId) {
     body: JSON.stringify({
       read: true,
     })
+  })
+  .catch(error => {
+    console.log('Error: ', error)
+  })
+}
+
+function archivationEmail(emailId, archiveValue) {
+  fetch(`/emails/${emailId}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      archived: archiveValue,
+    })
+  })
+  .then( function() {
+    // load user inbox
+    load_mailbox('inbox');
+  })
+  .catch(error => {
+    console.log('Error: ', error);
   })
 }

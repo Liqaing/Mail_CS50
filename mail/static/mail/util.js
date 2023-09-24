@@ -86,11 +86,19 @@ function createEmailTableHead() {
 function createSentEmailHtml(email) {
 
     // Generate string of anchor elements for recipient email
-    var recipientEmailsAnchor = ''; 
+    let recipientEmailsAnchor = ''; 
     email.recipients.forEach(email => {
         recipientEmailsAnchor += `<a class="dropdown-item" href="#">${email}</a>`
     });
 
+    // Show button to archive or unarchive the email
+    // Show only when user visit mail that is not in sent mailbox
+    let archivedButton = ''
+    if (document.querySelector('#mailbox-title').innerHTML.toLowerCase() !== 'sent') {
+        archivedButton = createArchivationButton(email);
+    }
+
+    // Html for display email
     const emailHtml = `
         <div class="h4 text-justify text-break">Subject: ${email.subject}</div>
         <p>Date: ${email.timestamp}</p>
@@ -105,13 +113,26 @@ function createSentEmailHtml(email) {
                 ${recipientEmailsAnchor}
             </div>
         </div>
+        ${archivedButton}
         <hr>
         <div class="text-justify text-indent">
             ${email.body}
         </div>
     `
-
     return emailHtml;
 }
 
-export { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient, createSentEmailHtml }
+function createArchivationButton(email) {
+    let archivedButton = '';
+    // check if archive state of email
+    if (email.archived === false) {
+        // Not yet archive
+        archivedButton = '<button id="archive-button" class="btn btn-outline-secondary btn-sm mt-1 p-1">Archive</button>'
+    }
+    else {
+        archivedButton = '<button id="archive-button" class="btn btn-outline-secondary btn-sm mt-1 p-1">Unarchive</button>'
+    }
+    return archivedButton;
+}
+
+export { createEmailTableRow, createEmailTableHead, createEmailTableHeadRecipient, createEmailTableRowRecipient, createSentEmailHtml, createArchivationButton }
